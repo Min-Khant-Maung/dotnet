@@ -1,0 +1,55 @@
+﻿
+@model IList<BatchViewModel>
+
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <title>Batch List</title>
+</head>
+<h1>Batch Information list</h1>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+<a href="/Batch/Entry" class="btn btn-info" role="button">Create</a>
+<table class="table" id="BatchTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>CourseName</th>
+            
+
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@s.Description</td>
+                <td>@s.CourseName</td>
+
+                <td><a href="/Batch/Edit?Id=@s.Id" class="btn btn-success" role="button">Edit</a></td>
+                <td><a href="/Batch/Delete?Id=@s.Id" onclick="return confirm('Are you sure to delete this record?')" class="btn btn-danger" role="button">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{ 
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $('#BatchTable').dataTable({});
+    });
+</script>

@@ -1,0 +1,66 @@
+﻿@model StudentViewModel;
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Student Entry</title>
+</head>
+<form action="/student/Edit" method="post">
+    <input type="text" hidden value="@Model.Id" name="Id" />
+    <div class="mb-3">
+        <label class="form-label">Code</label>
+        <input type="text" class="form-control" value="@Model.Code" name="Code" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" value="@Model.Name" name="Name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" value="@Model.Email" name="Email">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        <textarea name="Address" class="form-control">@Model.Address</textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        <select name="CourseId" class="form-control">
+            @foreach (var item in ViewBag.CourseList)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" class="form-control" value="@Model.Phone" name="Phone" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Father Name</label>
+        <input type="text" class="form-control" value="@Model.FatherName" name="FatherName" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" value="@Model.DOB.ToString("yyyy-MM-dd")" name="DOB" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">National Registration Card</label>
+        <input type="text" class="form-control" value="@Model.NRC" name="NRC" required>
+    </div>
+
+
+
+
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="Entry" />
+            </div>
+            <div class="col">
+                <input type="reset" class="btn btn-secondary" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

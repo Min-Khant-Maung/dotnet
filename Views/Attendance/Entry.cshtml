@@ -1,0 +1,49 @@
+﻿@model IList<StudentViewModel>
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Attendance Entry</title>
+</head>
+<h1>@ViewBag.msg</h1>
+<form action="/attendance/Entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">AttendanceDate</label>
+        <input type="date" class="form-control" name="AttendanceDate" placeholder="AttendanceDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Intime</label>
+        <input type="text" class="form-control" name="Intime" placeholder="Intime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">OutTime</label>
+        <input type="text" class="form-control" name="OutTime" placeholder="OutTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">IsLeave</label>
+        <input type="checkbox" class="form-control" name="IsLeave" placeholder="IsLeave" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">IsLate</label>
+        <input type="checkbox" class="form-control" name="IsLate" placeholder="IsLeave" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Student</label>
+        <select name="StudentId" class="form-control">
+            @foreach (var item in Model)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="Entry" />
+            </div>
+            <div class="col">
+                <input type="reset" class="btn btn-secondary" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

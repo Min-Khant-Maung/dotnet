@@ -1,0 +1,39 @@
+﻿<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Course Entry</title>
+</head>
+<h1>@ViewBag.msg</h1>
+<form action="/Course/Entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name" placeholder="Course Name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" name="Description" placeholder="Description">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Opening Date</label>
+        <input type="date" class="form-control" name="OpeningDate" placeholder="OpeiningDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">During in Hour</label>
+        <input type="number" class="form-control" name="DurationInHour" placeholder="DuringinHour" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Fees</label>
+        <input type="number" class="form-control" name="Fees" placeholder="Fees" required>
+    </div>
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="Entry" />
+            </div>
+            <div class="col">
+                <input type="reset" class="btn btn-secondary" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

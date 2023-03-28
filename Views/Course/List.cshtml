@@ -1,0 +1,45 @@
+﻿
+@model IList<CourseViewModel>
+
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Course</title>
+</head>
+<h1>Course Information</h1>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+<a href="/Course/Entry" class="btn btn-info" role="button">Create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>OpeningDate</th>
+            <th>DurationInHour</th>
+            <th>Fees</th>
+
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@s.Description</td>
+                <td>@s.OpeningDate.ToString("yyyy-MM--dd")</td>
+                <td>@s.DurationInHour</td>
+                <td>@s.Fees</td>
+
+                <td><a href="/Course/Edit?Id=@s.Id" class="btn btn-success" role="button">Edit</a></td>
+                <td><a href="/Course/Delete?Id=@s.Id" onclick="return confirm('Are you sure to delete this record?')" class="btn btn-danger" role="button">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

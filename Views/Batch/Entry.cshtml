@@ -1,0 +1,37 @@
+﻿@model IList<CourseViewModel>
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Batch Entry</title>
+</head>
+<h1>@ViewBag.msg</h1>
+<form action="/batch/Entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name" placeholder="Batch Name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" name="Description" placeholder="Batch Description" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        <select name="CourseId" class="form-control">
+            @foreach(var item in Model)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="Entry" />
+            </div>
+            <div class="col">
+                <input type="reset" class="btn btn-secondary" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

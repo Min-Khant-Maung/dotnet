@@ -1,0 +1,66 @@
+﻿
+@model IList<StudentViewModel>
+
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <title>Student List</title>
+</head>
+<h1>Student Information list</h1>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+<a href="/Student/Entry" class="btn btn-info" role="button">Create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>FatherName</th>
+            <th>DOB</th>
+            <th>NRC</th>
+            <th>BatchName</th>
+
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Code</td>
+                <td>@s.Name</td>
+                <td>@s.Email</td>
+                <td>@s.Address</td>
+                <td>@s.Phone</td>
+                <td>@s.FatherName</td>
+                <td>@s.DOB.ToString("yyyy-MM--dd")</td>
+                <td>@s.NRC</td>
+                <td>@s.BatchName</td>
+
+                <td><a href="/Student/Edit?Id=@s.Id" class="btn btn-success" role="button">Edit</a></td>
+                <td><a href="/Student/Delete?Id=@s.Id" onclick="return confirm('Are you sure to delete this record?')" class="btn btn-danger" role="button">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $('#BatchTable').dataTable({});
+    });
+</script>
