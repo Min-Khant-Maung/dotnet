@@ -1,0 +1,47 @@
+﻿@model AttendanceDayEndProcessViewModel
+<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    @{
+        ViewData["Title"] = "Attendance Day End Process";
+    }
+</head>
+
+<form action="/AttendanceDayEndProcess/DayEndProcess" method="post">
+    <div class="mb-3">
+        <label class="form-label">From Attendance Date</label>
+        <input type="date" class="form-control" name="FromDayEndDate" placeholder="From AttendanceDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">To Attendance Date</label>
+        <input type="date" class="form-control" name="ToDayEndDate" placeholder="To AttendanceDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Student</label>
+        <select name="StudentId" class="form-control">
+            <option value="so">--Select One--</option>
+            @foreach(var item in Model.students){
+            <option value="@item.Id">@item.Code:@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Batch Name</label>
+        <select name="BatchId" class="form-control">
+            <option value="so">--Select One--</option>
+            @foreach(var item in Model.batches){
+            <option value="@item.Id">@item.Name:@item.Description</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="btn btn-success" value="Day End" />
+            </div>
+            <div class="col">
+                <input type="reset" class="btn btn-secondary" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>

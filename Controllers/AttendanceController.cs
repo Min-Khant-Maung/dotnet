@@ -54,8 +54,8 @@ namespace SFMS.Controllers
                 attendance.AttendanceDate = attendanceViewModel.AttendanceDate;
                 attendance.Intime = attendanceViewModel.Intime;
                 attendance.OutTime = attendanceViewModel.OutTime;
-                attendance.IsLeave = attendanceViewModel.IsLeave;
-                attendance.IsLate = attendanceViewModel.IsLate;
+                attendance.IsLeave = string.IsNullOrEmpty(attendanceViewModel.IsLeave) ? false : true;
+                attendance.IsLate = string.IsNullOrEmpty(attendanceViewModel.IsLate) ? false : true;
                 attendance.StudentId = attendanceViewModel.StudentId;
 
                 _applicationDbcontent.Attendances.Add(attendance);//Ading the records Students DBSet
@@ -85,8 +85,8 @@ namespace SFMS.Controllers
                 AttendanceDate = bb.AttendanceDate,
                 Intime = bb.Intime,
                 OutTime = bb.OutTime,
-                IsLeave = bb.IsLeave,
-                IsLate = bb.IsLate,
+                IsLeave = bb.IsLeave==true?"Leave":null,
+                IsLate = bb.IsLate==true?"Late":null,
                 StudentName = bb.Student.Name
             }).ToList();
             return View(attendances);
@@ -105,19 +105,20 @@ namespace SFMS.Controllers
 
         public IActionResult Edit(string id)
         {
-            AttendanceViewModel attendanceViewModel = _applicationDbcontent.Attendances
+            var attendanceViewModel = _applicationDbcontent.Attendances
                 .Where(w => w.Id == id)
                 .Select(s => new AttendanceViewModel
                 {
+                    Id = s.Id,
                     AttendanceDate = s.AttendanceDate,
                     Intime = s.Intime,
                     OutTime = s.OutTime,
-                    IsLeave = s.IsLeave,
-                    IsLate = s.IsLate,
-                    StudentId = s.StudentId
+                    IsLeave = Convert.ToString( s.IsLeave),
+                    IsLate = Convert.ToString(s.IsLate)
                 }).SingleOrDefault();
 
-            ViewBag.StudentList = _applicationDbcontent.Students.Select(s => new SelectListItem
+            ViewBag.StudentList = _applicationDbcontent.Students.Where(x=>x.Id!=attendanceViewModel.StudentId)
+                .Select(s => new SelectListItem
             {
                 Value = s.Id,
                 Text = s.Name
@@ -144,8 +145,8 @@ namespace SFMS.Controllers
                 attendance.AttendanceDate = attendanceViewModel.AttendanceDate;
                 attendance.Intime = attendanceViewModel.Intime;
                 attendance.OutTime = attendanceViewModel.OutTime;
-                attendance.IsLeave = attendanceViewModel.IsLeave;
-                attendance.IsLate = attendanceViewModel.IsLate;
+                attendance.IsLeave = string.IsNullOrEmpty(attendanceViewModel.IsLeave) ? false : true;
+                attendance.IsLate = string.IsNullOrEmpty(attendanceViewModel.IsLate) ? false : true; ;
 
                 _applicationDbcontent.Entry(attendance).State = EntityState.Modified;//Updating the existing records in DBSet
                 _applicationDbcontent.SaveChanges();//Updating the records to the database

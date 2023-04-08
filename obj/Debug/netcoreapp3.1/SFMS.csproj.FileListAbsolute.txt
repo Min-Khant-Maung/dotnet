@@ -109,3 +109,5 @@ C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\bin\Debug\netcoreapp3.1\System.S
 C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\obj\Debug\netcoreapp3.1\Razor\Views\Report\TeacherDetail.cshtml.g.cs
+C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\obj\Debug\netcoreapp3.1\Razor\Views\FinePolicy\Entry.cshtml.g.cs
+C:\Users\Min Khant Maung\source\repos\SFMS\SFMS\obj\Debug\netcoreapp3.1\Razor\Views\AttendanceDayEndProcess\DayEndProcess.cshtml.g.cs

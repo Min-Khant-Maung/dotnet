@@ -11,19 +11,17 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Intime</label>
-        <input type="text" class="form-control" name="Intime" placeholder="Intime" required>
+        <input type="time" class="form-control" name="Intime" placeholder="Intime" required>
     </div>
     <div class="mb-3">
         <label class="form-label">OutTime</label>
-        <input type="text" class="form-control" name="OutTime" placeholder="OutTime" required>
+        <input type="time" class="form-control" name="OutTime" placeholder="OutTime" required>
     </div>
     <div class="mb-3">
         <label class="form-label">IsLeave</label>
-        <input type="checkbox" class="form-control" name="IsLeave" placeholder="IsLeave" >
-    </div>
-    <div class="mb-3">
+        <input type="radio" class="form-control" name="IsLeave" value="Leave" id="rdoIsLeave" placeholder="IsLeave">
         <label class="form-label">IsLate</label>
-        <input type="checkbox" class="form-control" name="IsLate" placeholder="IsLeave" >
+        <input type="radio" class="form-control" name="IsLate" value="Late" id="rdoIsLate" placeholder="IsLate" >
     </div>
     <div class="mb-3">
         <label class="form-label">Student</label>
@@ -45,5 +43,15 @@
         </div>
     </div>
 </form>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#rdoIsLate').click(function () {
+            $("#rdoIsLeave").prop("checked", false);
+        });
+        $('#rdoIsLeave').click(function () {
+            $("#rdoIsLate").prop("checked", false);
+        });
+    });
+</script>
+<script src="~/lib/jquery/jquery.js"></script>
 

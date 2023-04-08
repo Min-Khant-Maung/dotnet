@@ -10,8 +10,8 @@ using SFMS.Models.DAO;
 namespace SFMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230319073659_initial")]
-    partial class initial
+    [Migration("20230402101116_TheWholeModelChange")]
+    partial class TheWholeModelChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,45 @@ namespace SFMS.Migrations
                 .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("SFMS.Models.Attendance", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("AttendanceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Intime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLeave")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OutTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Attendance");
+                });
 
             modelBuilder.Entity("SFMS.Models.Batch", b =>
                 {
@@ -85,6 +124,78 @@ namespace SFMS.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("SFMS.Models.FinePolicy", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FineAfterMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FineAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinePolicy");
+                });
+
+            modelBuilder.Entity("SFMS.Models.FineTransition", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FineAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FinePolicyId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("FinedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OutTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinePolicyId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("FineTransition");
+                });
+
             modelBuilder.Entity("SFMS.Models.Student", b =>
                 {
                     b.Property<string>("Id")
@@ -92,6 +203,9 @@ namespace SFMS.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BatchId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -124,6 +238,8 @@ namespace SFMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BatchId");
 
                     b.ToTable("Student");
                 });
@@ -162,11 +278,36 @@ namespace SFMS.Migrations
                     b.ToTable("Teacher");
                 });
 
+            modelBuilder.Entity("SFMS.Models.Attendance", b =>
+                {
+                    b.HasOne("SFMS.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+                });
+
             modelBuilder.Entity("SFMS.Models.Batch", b =>
                 {
                     b.HasOne("SFMS.Models.Course", "Course")
                         .WithMany("Batches")
                         .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("SFMS.Models.FineTransition", b =>
+                {
+                    b.HasOne("SFMS.Models.FinePolicy", "FinePolicy")
+                        .WithMany()
+                        .HasForeignKey("FinePolicyId");
+
+                    b.HasOne("SFMS.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("SFMS.Models.Student", b =>
+                {
+                    b.HasOne("SFMS.Models.Batch", "Batch")
+                        .WithMany("Students")
+                        .HasForeignKey("BatchId");
                 });
 #pragma warning restore 612, 618
         }
