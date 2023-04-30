@@ -92,6 +92,47 @@ namespace SFMS.Controllers
                     _applicationDbcontent.SaveChanges();
                     isSuccess = true;
                 }
+                else if (!viewModel.BatchNameId.Equals("so"))
+                {
+                    var attendances = (from a in _applicationDbcontent.Attendances
+                                      join s in _applicationDbcontent.Students
+                                      on a.StudentId equals s.Id
+                                      join b in _applicationDbcontent.Batches
+                                      on s.BatchId equals b.Id
+                                      where s.BatchId.Equals(viewModel.BatchNameId)
+                                      && (a.AttendanceDate >= viewModel.FromDayEndDate && a.AttendanceDate <= viewModel.ToDayEndDate)
+                                      select new AttendanceViewModel
+                                      {
+                                          AttendanceDate = a.AttendanceDate,
+                                          StudentId = s.Id,
+                                          Intime = a.Intime,
+                                          OutTime = a.OutTime,
+                                      }).ToList();
+                    foreach (var attendance in attendances)
+                    {
+                        TimeSpan inTime = TimeSpan.Parse(attendance.Intime);
+                        if (inTime.Minutes > finePolicy.FineAfterMinutes)
+                        {
+                            FineTransition ft = new FineTransition()
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                CreatedDate = DateTime.Now,
+                                Ip = GetLocalIPAddress(),
+
+                                FinedDate = attendance.AttendanceDate,
+                                StudentId = attendance.StudentId,
+                                FinePolicyId = finePolicy.Id,
+                                InTime = attendance.Intime,
+                                OutTime = attendance.OutTime,
+                                FineAmount = Convert.ToInt32(finePolicy.FineAmount)
+                            };
+                            fts.Add(ft);
+                        }
+                    }
+                    _applicationDbcontent.FineTransitions.AddRange(fts);
+                    _applicationDbcontent.SaveChanges();
+                    isSuccess = true;
+                }
             }catch(Exception ex)
             {
                 isSuccess = false;

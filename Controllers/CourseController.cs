@@ -9,6 +9,7 @@ using SFMS.Models.DAO;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SFMS.Controllers
 {
@@ -20,11 +21,12 @@ namespace SFMS.Controllers
         {
             _applicationDbcontent = applicationDbContext;
         }
+        [Authorize(Roles = "admin,teacher")]
         public IActionResult Entry()
         {
             return View();
         }
-
+        [Authorize(Roles = "admin,teacher")]
         [HttpPost]
         public IActionResult Entry(CourseViewModel courseViewModel)
         {

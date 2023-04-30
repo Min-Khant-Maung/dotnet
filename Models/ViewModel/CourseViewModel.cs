@@ -13,5 +13,8 @@ namespace SFMS.Models.ViewModel
         public DateTime OpeningDate { get; set; }
         public int DurationInHour { get; set; }
         public int Fees { get; set; }
+        public Boolean IsPromotion { get; set; }
+        public float Percentance { get; set; }
+        public int Fixed { get; set; }
     }
 }

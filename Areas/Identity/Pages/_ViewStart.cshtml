@@ -1,0 +1,10 @@
+﻿
+@{      if (User.IsInRole("teacher"))
+            {
+                Layout = "/Views/Shared/AdminLTE/_Layout.cshtml";
+            }
+            else
+            {
+                Layout = "/Views/Shared/_LayoutPublic.cshtml";
+            }
+}
